@@ -1,0 +1,36 @@
+database:
+  host: "localhost"
+  port: 3306
+  user: "root"
+  password: "123456"
+  name: "bluebox"
+
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  db: 0
+  pool_size: 10            # 连接池大小，默认为 10
+  min_idle_conns: 3        # 最小空闲连接数，默认为 3
+  dial_timeout: 5s        # 连接超时时间
+  read_timeout: 30s       # 读取超时时间
+  write_timeout: 30s      # 写入超时时间
+  idle_timeout: 300s      # 连接最大空闲时间，默认为 5分钟（300秒）
+  max_retries: 3         # 最大重试次数
+
+app:
+  host: "localhost"
+  port: 8090
+  domain: "localhost:8090"
+
+# 日志配置
+log:
+  #  level: "debug"
+  logPath: "./backend/logs"
+  appName: "blueBox"
+
+# JWT配置
+jwt:
+  secret_key: "bluetooth-safe-Box-service-jwt-secret-key-example-x"
+  access_token_expiry: 30m # 30分钟
+  refresh_token_expiry: 168h # 7天

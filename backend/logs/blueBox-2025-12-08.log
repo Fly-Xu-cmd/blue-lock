@@ -1,0 +1,18 @@
+{"level":"INFO","ts":"2025-12-08T11:15:53.501+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-08T11:15:54.012+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"PANIC","ts":"2025-12-08T11:15:54.129+0800","caller":"init/redisInit.go:38","msg":"Redis连接失败: dial tcp :0: connectex: The requested address is not valid in its context."}
+{"level":"INFO","ts":"2025-12-08T11:18:09.153+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-08T11:18:09.204+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"PANIC","ts":"2025-12-08T11:18:09.277+0800","caller":"init/redisInit.go:38","msg":"Redis连接失败: dial tcp :0: connectex: The requested address is not valid in its context."}
+{"level":"INFO","ts":"2025-12-08T11:23:16.981+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-08T11:23:17.018+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"PANIC","ts":"2025-12-08T11:23:17.086+0800","caller":"init/redisInit.go:38","msg":"Redis连接失败: dial tcp :0: connectex: The requested address is not valid in its context."}
+{"level":"INFO","ts":"2025-12-08T15:07:23.492+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-08T15:07:23.606+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"PANIC","ts":"2025-12-08T15:07:23.680+0800","caller":"init/redisInit.go:38","msg":"Redis连接失败: dial tcp :0: connectex: The requested address is not valid in its context."}
+{"level":"INFO","ts":"2025-12-08T15:43:27.246+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-08T15:43:27.436+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-08T15:43:27.459+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-08T15:56:27.384+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-08T15:56:27.455+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-08T15:56:27.461+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}

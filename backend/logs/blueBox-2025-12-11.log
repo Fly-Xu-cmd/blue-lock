@@ -1,0 +1,6 @@
+{"level":"INFO","ts":"2025-12-11T20:43:16.865+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-11T20:43:16.962+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-11T20:43:16.971+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-11T21:06:21.234+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-11T21:06:21.291+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-11T21:06:21.294+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
