@@ -331,3 +331,8 @@ func (l *LoginLogic) RefreshToken(ctx context.Context, refreshToken string) (*v1
 		UserID:       uint(claims.UserID),
 	}, nil
 }
+
+// Logout 登出删除token逻辑
+func (l *LoginLogic) Logout(ctx context.Context, userID uint) error {
+	return l.tokenRepo.DeleteRefreshToken(ctx, userID)
+}

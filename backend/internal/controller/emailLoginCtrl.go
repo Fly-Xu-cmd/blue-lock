@@ -133,3 +133,30 @@ func RefreshToken() func(ctx *gin.Context) {
 		})
 	}
 }
+
+// LogoutHandler 登出处理器
+func LogoutHandler() func(ctx *gin.Context) {
+	return func(ctx *gin.Context) {
+		logoutLoginLogic := buildLoginLogic()
+		userID, exists := ctx.Get("user_id")
+		if !exists {
+			ctx.JSON(http.StatusUnauthorized, response.ErrorResponse{
+				Code:    globals.StatusUnauthorized,
+				Message: "未登录",
+			})
+			return
+		}
+		if err := logoutLoginLogic.Logout(ctx, uint(userID.(uint64))); err != nil {
+			ctx.JSON(http.StatusInternalServerError, response.ErrorResponse{
+				Code:    globals.StatusInternalServerError,
+				Message: "登出失败",
+				Error:   fmt.Sprintf("登出出现错误: %s", err),
+			})
+			return
+		}
+		ctx.JSON(http.StatusOK, response.Success{
+			Code: globals.StatusOK,
+			Data: "登出成功",
+		})
+	}
+}

@@ -40,11 +40,17 @@ func extractToken(c *gin.Context) string {
 	if authHeader == "" {
 		return ""
 	}
+	// 使用 strings.EqualFold 支持大小写不敏感的 Bearer 匹配
 	parts := strings.SplitN(authHeader, " ", 2)
-	if len(parts) != 2 || parts[0] != "Bearer" {
+	if len(parts) != 2 || !strings.EqualFold(parts[0], "Bearer") {
 		return ""
 	}
-	return parts[1]
+	// 去除 token 前后的空格
+	token := strings.TrimSpace(parts[1])
+	if token == "" {
+		return ""
+	}
+	return token
 }
 
 // sendAuthError 发送认证错误响应
