@@ -30,16 +30,18 @@ func SendVerificationCode() func(ctx *gin.Context) {
 		var req request.SendVerificationCodeRequest
 		if err := ctx.ShouldBind(&req); err != nil {
 			ctx.JSON(http.StatusBadRequest, response.ErrorResponse{
-				Code:  globals.StatusBadRequest,
-				Error: fmt.Sprintf("参数绑定错误 err: %s", err),
+				Code:    globals.StatusBadRequest,
+				Message: "参数绑定错误",
+				Error:   fmt.Sprintf("参数绑定错误 err: %s", err),
 			})
 		}
 		// 调用logic层代码
 		err := loginLogic.SendVerificationCode(ctx, req.Email)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, response.ErrorResponse{
-				Code:  globals.StatusInternalServerError,
-				Error: fmt.Sprintf("验证码发送失败：%s", err),
+				Code:    globals.StatusInternalServerError,
+				Message: "验证码发送失败",
+				Error:   fmt.Sprintf("验证码发送失败：%s", err),
 			})
 			return
 		}
@@ -58,16 +60,18 @@ func RegisterHandler() func(ctx *gin.Context) {
 		var req request.RegisterByVerificationCodeRequest
 		if err := ctx.ShouldBind(&req); err != nil {
 			ctx.JSON(http.StatusBadRequest, response.ErrorResponse{
-				Code:  globals.StatusBadRequest,
-				Error: fmt.Sprintf("参数绑定错误 err: %s", err),
+				Code:    globals.StatusBadRequest,
+				Message: "参数绑定错误",
+				Error:   fmt.Sprintf("参数绑定错误: %s", err),
 			})
 			return
 		}
 		user, err := regisLogic.RegisterEmail(ctx, &req)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, response.ErrorResponse{
-				Code:  globals.StatusInternalServerError,
-				Error: fmt.Sprintf("注册账号出现错误 err: %s", err),
+				Code:    globals.StatusInternalServerError,
+				Message: fmt.Sprintf("%v", err),
+				Error:   fmt.Sprintf("注册账号出现错误 %s", err),
 			})
 			return
 		}
@@ -85,16 +89,18 @@ func LoginHandler() func(ctx *gin.Context) {
 		var req request.LoginByPassORCode
 		if err := ctx.ShouldBind(&req); err != nil {
 			ctx.JSON(http.StatusBadRequest, response.ErrorResponse{
-				Code:  globals.StatusBadRequest,
-				Error: fmt.Sprintf("参数绑定错误 err: %s", err),
+				Code:    globals.StatusBadRequest,
+				Message: "参数绑定错误",
+				Error:   fmt.Sprintf("参数绑定错误 err: %s", err),
 			})
 			return
 		}
 		respData, err := loginLogic.LoginByPass(ctx, &req)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, response.ErrorResponse{
-				Code:  globals.StatusInternalServerError,
-				Error: fmt.Sprintf("登录账号出现错误 err: %s", err),
+				Code:    globals.StatusInternalServerError,
+				Message: "登录账号失败",
+				Error:   fmt.Sprintf("登录账号出现错误 err: %s", err),
 			})
 			return
 		}
@@ -112,8 +118,9 @@ func RefreshToken() func(ctx *gin.Context) {
 		var req request.RefreshTokenRequest
 		if err := ctx.ShouldBindJSON(&req); err != nil {
 			ctx.JSON(http.StatusBadRequest, response.ErrorResponse{
-				Code:  globals.StatusBadRequest,
-				Error: fmt.Sprintf("参数绑定错误 err: %s", err),
+				Code:    globals.StatusBadRequest,
+				Message: "参数绑定错误",
+				Error:   fmt.Sprintf("参数绑定错误 err: %s", err),
 			})
 			return
 		}
@@ -121,8 +128,9 @@ func RefreshToken() func(ctx *gin.Context) {
 		respData, err := loginLogic.RefreshToken(ctx, req.RefreshToken)
 		if err != nil {
 			ctx.JSON(http.StatusUnauthorized, response.ErrorResponse{
-				Code:  globals.StatusUnauthorized,
-				Error: err.Error(),
+				Code:    globals.StatusUnauthorized,
+				Message: "刷新令牌失败",
+				Error:   err.Error(),
 			})
 			return
 		}

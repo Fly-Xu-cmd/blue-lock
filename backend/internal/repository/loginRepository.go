@@ -4,6 +4,7 @@ import (
 	"blueLock/backend/internal/models"
 	"context"
 	"errors"
+	"fmt"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -32,7 +33,7 @@ func (r *LoginRepository) ExistsByEmail(c context.Context, email string) (bool, 
 		Where("deleted_at IS NULL").
 		Count(&count).
 		Error
-	return count > 0, err
+	return count > 0, fmt.Errorf("该用户已存在:%v", err)
 }
 
 // GetUserByID 根据id查询用户
