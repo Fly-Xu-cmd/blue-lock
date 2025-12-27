@@ -30,10 +30,16 @@ func (l *UserLogic) CreateUserOperation(
 	if err != nil {
 		return nil, err
 	}
+	var des string
+	if req.Type == 1 {
+		des = "关锁"
+	}
+	des = "开锁"
 	userOperation := &models.UserOperation{
 		UserID:           req.UserID,
 		UserName:         name,
 		OperationType:    uint(req.Type),
+		OperationDes:     des,
 		OperationContent: req.OperationContent,
 	}
 	if err := l.repo.CreateUserOperationRecord(ctx, userOperation); err != nil {
@@ -46,6 +52,7 @@ func (l *UserLogic) CreateUserOperation(
 	res := &response.UserResponse{
 		ID:               user.ID,
 		UserName:         user.UserName,
+		OperationDes:     user.OperationDes,
 		OperationContent: user.OperationContent,
 		OperateTime:      user.CreatedAt.Format("2006-01-02 15:04:05"),
 	}
