@@ -10,10 +10,14 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
+  BackHandler,
 } from 'react-native';
 import { BleManager, Device } from 'react-native-ble-plx';
 import { Buffer } from 'buffer';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+// import { logoutApi } from '../apis/register';
+import { HeaderButton } from '@react-navigation/elements';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -93,6 +97,27 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     requestBluetoothPermission();
   }, []);
+
+  // 禁用返回功能
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // 返回true表示禁用默认返回行为
+        return true;
+      };
+
+      // 注册Android物理返回按钮事件
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => {
+        // 清理事件监听器
+        subscription.remove();
+      };
+    }, []),
+  );
 
   // 扫描设备
   const scanForDevices = useCallback(async () => {
@@ -248,7 +273,7 @@ const HomeScreen: React.FC = () => {
       setErrorMessage(`发送命令失败: ${error.message}`);
     }
   };
-
+  // 蓝牙状态样式
   const getBluetoothStateStyle = () => {
     switch (bluetoothState) {
       case 'PoweredOn':
@@ -265,6 +290,16 @@ const HomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#f5f5f5" barStyle="dark-content" />
+      {/* 导航栏 */}
+      <View style={[styles.header]}>
+        <Text style={styles.headerTitle}>操作页</Text>
+        <HeaderButton
+          accessibilityLabel="More options"
+          onPress={() => console.log('button pressed')}
+        >
+          <AntDesign name="logout" size={24} />
+        </HeaderButton>
+      </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.title}>蓝牙设备控制器</Text>
 
@@ -312,6 +347,18 @@ const HomeScreen: React.FC = () => {
                     Math.min(100, ((rssiValue + 100) / 70) * 100),
                   );
 
+                  // 计算信号条样式
+                  const getSignalBarStyle = (index: number) => {
+                    return {
+                      height: 8 + index * 4,
+                      backgroundColor:
+                        signalStrength > (index + 1) * 25
+                          ? '#4CD964'
+                          : '#C7C7CC',
+                      opacity: signalStrength > (index + 1) * 25 ? 1 : 0.5,
+                    };
+                  };
+
                   return (
                     <TouchableOpacity
                       key={dev.id}
@@ -325,15 +372,7 @@ const HomeScreen: React.FC = () => {
                               key={index}
                               style={[
                                 styles.signalBar,
-                                {
-                                  height: 8 + index * 4,
-                                  backgroundColor:
-                                    signalStrength > (index + 1) * 25
-                                      ? '#4CD964'
-                                      : '#C7C7CC',
-                                  opacity:
-                                    signalStrength > (index + 1) * 25 ? 1 : 0.5,
-                                },
+                                getSignalBarStyle(index),
                               ]}
                             />
                           ))}
@@ -464,9 +503,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa',
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     paddingTop: 30,
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333333',
+  },
+  logoutButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#f0f0f0',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoutIcon: {
+    fontSize: 20,
+  },
+
   scrollContainer: {
     padding: 20,
     paddingBottom: 40,
