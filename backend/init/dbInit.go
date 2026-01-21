@@ -63,6 +63,7 @@ func TableInit() {
 	}
 	err := globals.DB.AutoMigrate(
 		&models.User{},
+		&models.UserOperation{},
 	)
 	if err != nil {
 		fmt.Println("初始化表失败:", err)

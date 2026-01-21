@@ -174,7 +174,7 @@ func (l *LoginLogic) RegisterEmail(ctx context.Context, req *request.RegisterByV
 	// 2. 验证用户信息
 	err := l.VerifyMes(ctx, req)
 	if err != nil {
-		return nil, fmt.Errorf("验证用户信息错误 err: %s", err)
+		return nil, err
 	}
 	// 3. 密码加密生成 hash
 	hashed, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
@@ -183,6 +183,8 @@ func (l *LoginLogic) RegisterEmail(ctx context.Context, req *request.RegisterByV
 	}
 	// 4. 邮箱密码存入数据库
 	user := &models.User{
+		Name:     fmt.Sprintf("用户%d", l.RandNumber()),
+		Avatar:   "https://c-ssl.duitang.com/uploads/blog/202207/30/20220730152747_b7bec.png",
 		Email:    req.Email,
 		PassWord: string(hashed),
 	}
@@ -206,7 +208,7 @@ func (l *LoginLogic) VerifyMes(ctx context.Context, req *request.RegisterByVerif
 	// 2. 判断邮箱是否存在
 	isExists, err := l.repo.ExistsByEmail(ctx, req.Email)
 	if err != nil {
-		return fmt.Errorf("该用户已存在 err: %w", err)
+		return fmt.Errorf("该用户已存在")
 	}
 	if isExists {
 		return fmt.Errorf("已经存在邮箱为 %v 的用户", req.Email)
@@ -287,9 +289,12 @@ func (l *LoginLogic) LoginByPass(ctx context.Context, req *request.LoginByPassOR
 	}
 
 	return &v1.LoginResponseData{
+		UserID:       user.ID,
+		UserName:     user.Name,
+		Avatar:       user.Avatar,
+		UserEmail:    user.Email,
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
-		UserID:       user.ID,
 	}, nil
 }
 
@@ -335,4 +340,10 @@ func (l *LoginLogic) RefreshToken(ctx context.Context, refreshToken string) (*v1
 // Logout 登出删除token逻辑
 func (l *LoginLogic) Logout(ctx context.Context, userID uint) error {
 	return l.tokenRepo.DeleteRefreshToken(ctx, userID)
+}
+
+// RandNumber 生成一个几乎不会重复的6位数字
+func (l *LoginLogic) RandNumber() int {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return 100000 + r.Intn(900000) // [100000,999999]
 }

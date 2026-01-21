@@ -10,9 +10,10 @@ import (
 func SetUpRouter() {
 	// 创建 Gin 引擎
 	globals.Router = gin.Default()
-	
 	// 跨域
 	globals.Router.Use(middleware.CorsMiddleware())
 	// 登录路由
 	routers.EmailLoginRouter(globals.Router)
+	// 用户操作相关路由
+	routers.UserRouter(globals.Router)
 }

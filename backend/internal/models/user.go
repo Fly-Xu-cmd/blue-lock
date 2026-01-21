@@ -5,6 +5,8 @@ import "gorm.io/gorm"
 // User 用户表
 type User struct {
 	gorm.Model
+	Name     string `gorm:"type:varchar(255);not null;uniqueIndex" json:"name"`
 	Email    string `gorm:"type:varchar(255);not null;uniqueIndex" json:"email"`
 	PassWord string `json:"password"    gorm:"size:100"`
+	Avatar   string `gorm:"type:varchar(255);not null" json:"avatar"`
 }

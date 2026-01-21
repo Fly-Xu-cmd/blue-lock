@@ -1,0 +1,103 @@
+{"level":"INFO","ts":"2025-12-14T17:43:41.490+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T17:43:41.881+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T17:43:41.904+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T19:40:35.804+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T19:40:35.879+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T19:40:35.881+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T19:53:50.977+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T19:53:51.068+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T19:53:51.073+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T19:55:30.180+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T19:55:30.236+0800","caller":"init/dbInit.go:72","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T19:55:30.237+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T19:56:05.403+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T19:56:05.559+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T19:56:05.560+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T20:17:23.466+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T20:17:23.547+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T20:17:23.550+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T20:19:42.465+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T20:19:42.538+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T20:19:42.540+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T20:31:02.543+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T20:31:02.867+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T20:31:02.870+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T20:31:34.767+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 892608"}
+{"level":"WARN","ts":"2025-12-14T20:31:34.770+0800","caller":"logic/loginLogic.go:230","msg":"验证码已过期或不存在，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T20:49:04.505+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T20:49:04.665+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T20:49:04.668+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T20:51:54.278+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:test@qq.com, code: 838146, email: test@qq.com"}
+{"level":"WARN","ts":"2025-12-14T20:51:56.019+0800","caller":"logic/loginLogic.go:76","msg":"邮件发送失败，但验证码已存储: 关闭数据流失败: 550 The recipient may contain a non-existent account, please check the recipient address."}
+{"level":"INFO","ts":"2025-12-14T20:57:29.261+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T20:57:29.347+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T20:57:29.348+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T20:58:00.316+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:test@qq.com, code: 954126, email: test@qq.com"}
+{"level":"WARN","ts":"2025-12-14T20:58:02.099+0800","caller":"logic/loginLogic.go:76","msg":"邮件发送失败，但验证码已存储: 关闭数据流失败: 550 The recipient may contain a non-existent account, please check the recipient address."}
+{"level":"INFO","ts":"2025-12-14T20:59:49.935+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 407302, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:00:46.889+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 407302"}
+{"level":"INFO","ts":"2025-12-14T21:00:46.890+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 407302, inputCode: 407302"}
+{"level":"INFO","ts":"2025-12-14T21:00:46.891+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:03:07.146+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 106746, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:03:25.646+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 106746"}
+{"level":"INFO","ts":"2025-12-14T21:03:25.647+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 106746, inputCode: 106746"}
+{"level":"INFO","ts":"2025-12-14T21:03:25.647+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:06:15.834+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T21:06:15.907+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T21:06:15.909+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T21:06:50.212+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 546659, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:07:10.333+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 546659"}
+{"level":"INFO","ts":"2025-12-14T21:07:10.334+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 546659, inputCode: 546659"}
+{"level":"INFO","ts":"2025-12-14T21:07:10.335+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:10:12.829+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 546659"}
+{"level":"WARN","ts":"2025-12-14T21:10:12.829+0800","caller":"logic/loginLogic.go:230","msg":"验证码已过期或不存在，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:10:19.895+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 455138, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:10:42.001+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 455138"}
+{"level":"INFO","ts":"2025-12-14T21:10:42.001+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 455138, inputCode: 455138"}
+{"level":"INFO","ts":"2025-12-14T21:10:42.001+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:13:36.395+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 626768, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:13:52.567+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 626768"}
+{"level":"INFO","ts":"2025-12-14T21:13:52.568+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 626768, inputCode: 626768"}
+{"level":"INFO","ts":"2025-12-14T21:13:52.569+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:17:05.357+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T21:17:05.436+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T21:17:05.438+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T21:17:39.287+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 387476, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:17:59.548+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 387476"}
+{"level":"INFO","ts":"2025-12-14T21:17:59.548+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 387476, inputCode: 387476"}
+{"level":"INFO","ts":"2025-12-14T21:17:59.549+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:18:34.435+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 564560, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:18:54.542+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 564560"}
+{"level":"INFO","ts":"2025-12-14T21:18:54.543+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 564560, inputCode: 564560"}
+{"level":"INFO","ts":"2025-12-14T21:18:54.543+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:20:14.083+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T21:20:14.145+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T21:20:14.147+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T21:24:55.288+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T21:24:55.378+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T21:24:55.384+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T21:25:16.268+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 983911, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:25:31.741+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 983911"}
+{"level":"INFO","ts":"2025-12-14T21:25:31.742+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 983911, inputCode: 983911"}
+{"level":"INFO","ts":"2025-12-14T21:25:31.742+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:26:07.866+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T21:26:07.937+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T21:26:07.939+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T21:26:39.241+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 234817, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:27:22.029+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 234817"}
+{"level":"INFO","ts":"2025-12-14T21:27:22.030+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 234817, inputCode: 234817"}
+{"level":"INFO","ts":"2025-12-14T21:27:22.031+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:28:10.539+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T21:28:10.609+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T21:28:10.612+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T21:28:15.524+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 234817"}
+{"level":"WARN","ts":"2025-12-14T21:28:15.525+0800","caller":"logic/loginLogic.go:230","msg":"验证码已过期或不存在，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:28:17.810+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 234817"}
+{"level":"WARN","ts":"2025-12-14T21:28:17.812+0800","caller":"logic/loginLogic.go:230","msg":"验证码已过期或不存在，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:28:26.562+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2025-12-14T21:28:26.632+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2025-12-14T21:28:26.633+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2025-12-14T21:28:39.829+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 031735, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2025-12-14T21:28:56.079+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 031735"}
+{"level":"INFO","ts":"2025-12-14T21:28:56.080+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 031735, inputCode: 031735"}
+{"level":"INFO","ts":"2025-12-14T21:28:56.080+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}
