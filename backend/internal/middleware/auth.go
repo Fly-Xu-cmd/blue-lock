@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"blueLock/backend/internal/pkg/token"
+	"backend/internal/pkg/token"
 	"github.com/gin-gonic/gin"
 	"strings"
 )

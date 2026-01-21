@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"blueLock/backend/internal/models"
-	"blueLock/backend/internal/request"
+	"backend/internal/models"
+	"backend/internal/request"
 	"context"
 	"errors"
 	"gorm.io/gorm"

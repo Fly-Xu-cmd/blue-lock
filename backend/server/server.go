@@ -1,9 +1,9 @@
 package server
 
 import (
-	"blueLock/backend/init"
-	"blueLock/backend/internal/pkg/globals"
-	"blueLock/backend/router"
+	"backend/init"
+	"backend/internal/pkg/globals"
+	"backend/router"
 	"context"
 	"fmt"
 	"log"

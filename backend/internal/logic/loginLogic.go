@@ -1,12 +1,12 @@
 package logic
 
 import (
-	v1 "blueLock/backend/api/v1"
-	"blueLock/backend/internal/models"
-	"blueLock/backend/internal/pkg/globals"
-	"blueLock/backend/internal/pkg/token"
-	"blueLock/backend/internal/repository"
-	"blueLock/backend/internal/request"
+	v1 "backend/api/v1"
+	"backend/internal/models"
+	"backend/internal/pkg/globals"
+	"backend/internal/pkg/token"
+	"backend/internal/repository"
+	"backend/internal/request"
 	"context"
 	"crypto/tls"
 	"errors"

@@ -1,10 +1,10 @@
 package logic
 
 import (
-	"blueLock/backend/internal/models"
-	"blueLock/backend/internal/repository"
-	"blueLock/backend/internal/request"
-	"blueLock/backend/internal/response"
+	"backend/internal/models"
+	"backend/internal/repository"
+	"backend/internal/request"
+	"backend/internal/response"
 	"context"
 )
 

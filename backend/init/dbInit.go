@@ -1,8 +1,8 @@
 package inits
 
 import (
-	"blueLock/backend/internal/models"
-	"blueLock/backend/internal/pkg/globals"
+	"backend/internal/models"
+	"backend/internal/pkg/globals"
 	"fmt"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"

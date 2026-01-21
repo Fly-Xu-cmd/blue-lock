@@ -1,9 +1,9 @@
 package router
 
 import (
-	"blueLock/backend/internal/middleware"
-	"blueLock/backend/internal/pkg/globals"
-	"blueLock/backend/internal/routers"
+	"backend/internal/middleware"
+	"backend/internal/pkg/globals"
+	"backend/internal/routers"
 	"github.com/gin-gonic/gin"
 )
 

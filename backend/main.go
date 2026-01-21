@@ -1,6 +1,6 @@
 package main
 
-import "blueLock/backend/server"
+import "backend/server"
 
 func main() {
 	server.Run()

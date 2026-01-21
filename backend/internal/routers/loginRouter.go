@@ -1,10 +1,10 @@
 package routers
 
 import (
-	"blueLock/backend/internal/controller"
-	"blueLock/backend/internal/middleware"
-	"blueLock/backend/internal/pkg/globals"
-	"blueLock/backend/internal/pkg/token"
+	"backend/internal/controller"
+	"backend/internal/middleware"
+	"backend/internal/pkg/globals"
+	"backend/internal/pkg/token"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +19,7 @@ func EmailLoginRouter(r *gin.Engine) {
 	login.POST("/emailLogin", controller.LoginHandler())
 	// 刷新token接口
 	login.POST("/refreshToken", controller.RefreshToken())
-	
+
 	// 需要认证的路由组
 	tokenService := token.NewService(token.Config{
 		SecretKey:          globals.AppConfig.JWT.SecretKey,

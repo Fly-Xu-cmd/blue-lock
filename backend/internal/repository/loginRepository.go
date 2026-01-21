@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"blueLock/backend/internal/models"
+	"backend/internal/models"
 	"context"
 	"errors"
 	"fmt"
