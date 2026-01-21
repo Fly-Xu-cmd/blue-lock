@@ -1,12 +1,12 @@
 package controller
 
 import (
-	"blueLock/backend/internal/logic"
-	"blueLock/backend/internal/pkg/globals"
-	"blueLock/backend/internal/pkg/token"
-	"blueLock/backend/internal/repository"
-	"blueLock/backend/internal/request"
-	"blueLock/backend/internal/response"
+	"backend/internal/logic"
+	"backend/internal/pkg/globals"
+	"backend/internal/pkg/token"
+	"backend/internal/repository"
+	"backend/internal/request"
+	"backend/internal/response"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"

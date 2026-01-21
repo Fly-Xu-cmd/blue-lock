@@ -1,8 +1,8 @@
 package inits
 
 import (
-	"blueLock/backend/internal/pkg/globals"
-	"blueLock/backend/internal/pkg/logger"
+	"backend/internal/pkg/globals"
+	"backend/internal/pkg/logger"
 	"fmt"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"

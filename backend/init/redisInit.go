@@ -2,7 +2,7 @@
 package inits
 
 import (
-	"blueLock/backend/internal/pkg/globals"
+	"backend/internal/pkg/globals"
 	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"

@@ -1,7 +1,7 @@
 package inits
 
 import (
-	"blueLock/backend/internal/pkg/globals"
+	"backend/internal/pkg/globals"
 	"fmt"
 	"github.com/spf13/viper"
 )
