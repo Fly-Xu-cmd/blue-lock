@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,18 +6,15 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
-  Dimensions,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 /**
  * 用户行为分析页面
  * 显示用户的设备使用情况、操作记录等分析数据
  */
-const AnalysisScreen: React.FC = ()=>{
-  const navigation = useNavigation();
+const AnalysisScreen: React.FC = () => {
   const [selectedTimeRange, setSelectedTimeRange] = useState('week');
-  
+
   // 模拟用户行为数据
   const mockBehaviorData = {
     week: {
@@ -36,8 +33,6 @@ const AnalysisScreen: React.FC = ()=>{
       ],
       recentActions: [
         { time: '10:30', action: '解锁设备', device: '蓝牙锁-001' },
-        { time: '09:15', action: '连接设备', device: '蓝牙锁-001' },
-        { time: '08:45', action: '扫描设备', device: '无' },
         { time: '昨天 22:10', action: '锁定设备', device: '蓝牙锁-001' },
         { time: '昨天 21:30', action: '解锁设备', device: '蓝牙锁-001' },
       ],
@@ -55,8 +50,6 @@ const AnalysisScreen: React.FC = ()=>{
       ],
       recentActions: [
         { time: '10:30', action: '解锁设备', device: '蓝牙锁-001' },
-        { time: '09:15', action: '连接设备', device: '蓝牙锁-001' },
-        { time: '08:45', action: '扫描设备', device: '无' },
         { time: '昨天 22:10', action: '锁定设备', device: '蓝牙锁-001' },
         { time: '昨天 21:30', action: '解锁设备', device: '蓝牙锁-001' },
       ],
@@ -64,51 +57,44 @@ const AnalysisScreen: React.FC = ()=>{
   };
 
   // 计算当前选择的时间范围数据
-  const currentData = mockBehaviorData[selectedTimeRange as keyof typeof mockBehaviorData];
+  const currentData =
+    mockBehaviorData[selectedTimeRange as keyof typeof mockBehaviorData];
 
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="#f8f9fa" barStyle="dark-content" />
-      
-      {/* 顶部导航栏 */}
-      <View style={styles.header}>
-        <TouchableOpacity 
-          style={styles.backButton} 
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.backButtonText}>←</Text>
-        </TouchableOpacity>
-        <Text style={styles.title}>用户行为分析</Text>
-        <View style={styles.placeholder} />
-      </View>
 
       {/* 时间范围选择 */}
       <View style={styles.timeRangeContainer}>
         <TouchableOpacity
           style={[
             styles.timeRangeButton,
-            selectedTimeRange === 'week' && styles.timeRangeButtonActive
+            selectedTimeRange === 'week' && styles.timeRangeButtonActive,
           ]}
           onPress={() => setSelectedTimeRange('week')}
         >
-          <Text style={[
-            styles.timeRangeText,
-            selectedTimeRange === 'week' && styles.timeRangeTextActive
-          ]}>
+          <Text
+            style={[
+              styles.timeRangeText,
+              selectedTimeRange === 'week' && styles.timeRangeTextActive,
+            ]}
+          >
             本周
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.timeRangeButton,
-            selectedTimeRange === 'month' && styles.timeRangeButtonActive
+            selectedTimeRange === 'month' && styles.timeRangeButtonActive,
           ]}
           onPress={() => setSelectedTimeRange('month')}
         >
-          <Text style={[
-            styles.timeRangeText,
-            selectedTimeRange === 'month' && styles.timeRangeTextActive
-          ]}>
+          <Text
+            style={[
+              styles.timeRangeText,
+              selectedTimeRange === 'month' && styles.timeRangeTextActive,
+            ]}
+          >
             本月
           </Text>
         </TouchableOpacity>
@@ -116,14 +102,6 @@ const AnalysisScreen: React.FC = ()=>{
 
       {/* 数据概览卡片 */}
       <View style={styles.overviewContainer}>
-        <View style={styles.overviewCard}>
-          <Text style={styles.overviewLabel}>总扫描次数</Text>
-          <Text style={styles.overviewValue}>{currentData.totalScans}</Text>
-        </View>
-        <View style={styles.overviewCard}>
-          <Text style={styles.overviewLabel}>总连接次数</Text>
-          <Text style={styles.overviewValue}>{currentData.totalConnections}</Text>
-        </View>
         <View style={styles.overviewCard}>
           <Text style={styles.overviewLabel}>总锁定次数</Text>
           <Text style={styles.overviewValue}>{currentData.totalLocks}</Text>
@@ -136,25 +114,23 @@ const AnalysisScreen: React.FC = ()=>{
 
       {/* 每日数据表格 */}
       <View style={styles.tableContainer}>
-        <Text style={styles.sectionTitle}>{selectedTimeRange === 'week' ? '每日数据' : '每周数据'}</Text>
+        <Text style={styles.sectionTitle}>
+          {selectedTimeRange === 'week' ? '每日数据' : '每周数据'}
+        </Text>
         <View style={styles.tableHeader}>
           <Text style={styles.tableHeaderText}>时间</Text>
-          <Text style={styles.tableHeaderText}>扫描</Text>
-          <Text style={styles.tableHeaderText}>连接</Text>
           <Text style={styles.tableHeaderText}>锁定</Text>
           <Text style={styles.tableHeaderText}>解锁</Text>
         </View>
         {currentData.dailyData.map((item, index) => (
-          <View 
-            key={index} 
+          <View
+            key={index}
             style={[
               styles.tableRow,
-              index % 2 === 1 && styles.tableRowAlternate
+              index % 2 === 1 && styles.tableRowAlternate,
             ]}
           >
             <Text style={styles.tableCell}>{item.day}</Text>
-            <Text style={styles.tableCell}>{item.scans}</Text>
-            <Text style={styles.tableCell}>{item.connections}</Text>
             <Text style={styles.tableCell}>{item.locks}</Text>
             <Text style={styles.tableCell}>{item.unlocks}</Text>
           </View>
@@ -168,9 +144,13 @@ const AnalysisScreen: React.FC = ()=>{
           <View key={index} style={styles.actionItem}>
             <View style={styles.actionIconContainer}>
               <Text style={styles.actionIcon}>
-                {action.action === '解锁设备' ? '🔓' : 
-                 action.action === '锁定设备' ? '🔒' : 
-                 action.action === '连接设备' ? '📲' : '🔍'}
+                {action.action === '解锁设备'
+                  ? '🔓'
+                  : action.action === '锁定设备'
+                  ? '🔒'
+                  : action.action === '连接设备'
+                  ? '📲'
+                  : '🔍'}
               </Text>
             </View>
             <View style={styles.actionContent}>
@@ -183,22 +163,12 @@ const AnalysisScreen: React.FC = ()=>{
       </View>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    backgroundColor: '#ffffff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
   },
   backButton: {
     width: 40,

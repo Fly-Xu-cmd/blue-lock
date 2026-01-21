@@ -3,8 +3,8 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  Alert,
   ActivityIndicator,
+  ToastAndroid,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text } from 'react-native';
@@ -40,11 +40,11 @@ export default function LoginScreen() {
   // 获取验证码
   const getVerificationCode = async () => {
     if (!email) {
-      Alert.alert('提示', '请输入邮箱');
+      ToastAndroid.show('请输入邮箱', ToastAndroid.SHORT);
       return;
     }
     if (!validateEmail(email)) {
-      Alert.alert('提示', '请输入有效的邮箱地址');
+      ToastAndroid.show('请输入有效的邮箱地址', ToastAndroid.SHORT);
       return;
     }
 
@@ -52,16 +52,19 @@ export default function LoginScreen() {
     try {
       const res = await getVerificationCodeApi({ email: email });
       if (res.code === 2000) {
-        Alert.alert('成功', '验证码已发送，请查收邮箱');
+        ToastAndroid.show('验证码已发送，请查收邮箱', ToastAndroid.SHORT);
       } else {
         const errorMessage =
           res.data && typeof res.data === 'string'
             ? res.data
             : '获取验证码失败，请稍后重试';
-        Alert.alert('失败', errorMessage);
+        ToastAndroid.show(errorMessage, ToastAndroid.SHORT);
       }
     } catch (error: any) {
-      Alert.alert('错误', error.message || '获取验证码失败，请稍后重试');
+      ToastAndroid.show(
+        error.message || '获取验证码失败，请稍后重试',
+        ToastAndroid.SHORT,
+      );
     } finally {
       setCodeLoading(false);
     }
@@ -70,15 +73,15 @@ export default function LoginScreen() {
   // 处理登录按钮点击
   const handleLogin = async () => {
     if (!email) {
-      Alert.alert('提示', '请输入邮箱');
+      ToastAndroid.show('请输入邮箱', ToastAndroid.SHORT);
       return;
     }
     if (!validateEmail(email)) {
-      Alert.alert('提示', '请输入有效的邮箱地址');
+      ToastAndroid.show('请输入有效的邮箱地址', ToastAndroid.SHORT);
       return;
     }
     if (!password) {
-      Alert.alert('提示', '请输入密码');
+      ToastAndroid.show('请输入密码', ToastAndroid.SHORT);
       return;
     }
 
@@ -98,20 +101,21 @@ export default function LoginScreen() {
         // 保存 token（这里可以后续集成 AsyncStorage）
         console.log('登录成功', res.data);
         await http.setToken(res.data.access_token, res.data.refresh_token);
-        Alert.alert('成功', '登录成功', [
-          {
-            text: '确定',
-            onPress: () => {
-              // TODO: 导航到主页面
-              navigation.navigate('Home' as never);
-            },
-          },
-        ]);
+        ToastAndroid.show('登录成功', ToastAndroid.SHORT);
+        setTimeout(() => {
+          navigation.navigate('Home' as never);
+        }, 1000);
       } else {
-        Alert.alert('登录失败', res.message || '登录失败，请检查邮箱和密码');
+        ToastAndroid.show(
+          res.message || '登录失败，请检查邮箱和密码',
+          ToastAndroid.SHORT,
+        );
       }
     } catch (error: any) {
-      Alert.alert('错误', error.message || '登录失败，请稍后重试');
+      ToastAndroid.show(
+        error.message || '登录失败，请稍后重试',
+        ToastAndroid.SHORT,
+      );
     } finally {
       setLoading(false);
     }
@@ -127,23 +131,23 @@ export default function LoginScreen() {
 
     // 执行注册逻辑
     if (!email) {
-      Alert.alert('提示', '请输入邮箱');
+      ToastAndroid.show('请输入邮箱', ToastAndroid.SHORT);
       return;
     }
     if (!validateEmail(email)) {
-      Alert.alert('提示', '请输入有效的邮箱地址');
+      ToastAndroid.show('请输入有效的邮箱地址', ToastAndroid.SHORT);
       return;
     }
     if (!password) {
-      Alert.alert('提示', '请输入密码');
+      ToastAndroid.show('请输入密码', ToastAndroid.SHORT);
       return;
     }
     if (password.length < 6) {
-      Alert.alert('提示', '密码长度至少为6位');
+      ToastAndroid.show('密码长度至少为6位', ToastAndroid.SHORT);
       return;
     }
     if (!verifyCode) {
-      Alert.alert('提示', '请输入验证码');
+      ToastAndroid.show('请输入验证码', ToastAndroid.SHORT);
       return;
     }
 
@@ -155,20 +159,22 @@ export default function LoginScreen() {
         code: verifyCode,
       });
       if (res.code === 2000) {
-        Alert.alert('成功', '注册成功，请登录', [
-          {
-            text: '确定',
-            onPress: () => {
-              setIsRegister(false);
-              setVerifyCode('');
-            },
-          },
-        ]);
+        ToastAndroid.show('注册成功，请登录', ToastAndroid.SHORT);
+        setTimeout(() => {
+          setIsRegister(false);
+          setVerifyCode('');
+        }, 1000);
       } else {
-        Alert.alert('注册失败', res.message || '注册失败，请检查信息后重试');
+        ToastAndroid.show(
+          res.message || '注册失败，请检查信息后重试',
+          ToastAndroid.SHORT,
+        );
       }
     } catch (error: any) {
-      Alert.alert('错误', error.message || '注册失败，请稍后重试');
+      ToastAndroid.show(
+        error.message || '注册失败，请稍后重试',
+        ToastAndroid.SHORT,
+      );
     } finally {
       setLoading(false);
     }
