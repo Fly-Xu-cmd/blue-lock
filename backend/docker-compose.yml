@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # 1. 你的后端服务
+  app:
+    image: leyinlinn/blue-lock-backend:1.0
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mysql_db
+      - redis_db
+    restart: always
+
+  # 2. MySQL 服务
+  mysql_db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456  # 必须和 yaml 里的密码一致
+      MYSQL_DATABASE: bluebox             # 自动创建名为 bluebox 的数据库
+    ports:
+      - "3306:3306"
+    volumes:
+      # 自动建表：把你的 sql 文件放进 backend/init_sql 文件夹
+      - ./init_sql:/docker-entrypoint-initdb.d
+      # 数据持久化
+      - ./mysql_data:/var/lib/mysql
+
+  # 3. Redis 服务
+  redis_db:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
