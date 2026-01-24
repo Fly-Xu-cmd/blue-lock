@@ -81,7 +81,7 @@ func (l *UserLogic) GetOperateRecord(
 	}
 
 	// 获取解锁/关锁次数
-	lock, unlock := l.repo.GetlockCount(ctx)
+	lock, unlock := l.repo.GetlockCount(ctx, req)
 
 	// 映射为响应结构体
 	recordsResp := make([]response.UserResponse, 0, len(recordList))
