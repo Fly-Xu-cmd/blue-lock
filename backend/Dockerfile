@@ -1,6 +1,6 @@
 # 使用官方镜像名，去除 m.daocloud.io 前缀
 # 注意：改为 1.23 或 1.22，确保有对应镜像
-FROM golang:1.23-alpine AS builder
+FROM golang:1.24-alpine AS builder
 
 WORKDIR /build
 ENV GOPROXY=https://goproxy.io,direct
