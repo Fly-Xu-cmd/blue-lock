@@ -3,9 +3,12 @@ version: '3.8'
 services:
   # 1. 你的后端服务
   app:
+    # --- 新增下面这一行 ---
+    build: .   # 告诉 docker 在当前目录寻找 Dockerfile 进行构建
+    # ---------------------
     image: leyinlinn/blue-lock-backend:1.0
     ports:
-      - "8090:8090"
+      - "8091:8090" # 之前建议修改的端口
     depends_on:
       - mysql_db
       - redis_db
