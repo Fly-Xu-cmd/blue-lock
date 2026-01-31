@@ -19,60 +19,50 @@ jobs:
         with:
           go-version: "1.24"
 
-      # 1. 编译 + 压缩 (关键步骤)
-      - name: Build and Compress
+      # 1. 编译 (依然在 GitHub 上做)
+      - name: Build Binary
         run: |
           cd backend
-
-          echo "1. Building Binary..."
-          # -ldflags="-s -w" 去掉符号表，大幅减小体积
           CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o main .
-
-          echo "2. Compressing files..."
-          # 将所有需要的文件打包成一个 release.tar.gz
-          # 包含: 二进制文件, 配置文件, Dockerfile, docker-compose.yml
+          # 打包以加速传输
           tar -czvf release.tar.gz main configs Dockerfile docker-compose.yml
 
-          echo "File size:"
-          ls -lh release.tar.gz
-
-      # 2. 只上传这一个压缩包
-      - name: Copy compressed file to server
-        uses: appleboy/scp-action@master
+      # 2. 配置 SSH (使用原生 ssh key)
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "backend/release.tar.gz"
-          target: "blue-lock-project" # 上传到服务器的这个目录
-          strip_components: 1 # 去掉本地的 'backend/' 前缀，直接把文件放到 target 目录
-          timeout: "600s" # 设置 10 分钟超时，防止断开
-          debug: true # 开启调试模式，看看到底卡在哪
+          known_hosts: unnecessary # 忽略 host key 检查
+          if_key_exists: replace
 
-      # 3. 远程解压并重启
-      - name: Remote SSH commands
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
+      # 3. 使用原生 SCP 和 SSH 上传并部署 (增加重试机制)
+      - name: Deploy with Retry
+        run: |
+          # 添加服务器到 known_hosts 以防询问
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+          echo "1. Uploading file (attempt 1)..."
+          # 使用原生 scp，-o ServerAliveInterval 保持连接活跃
+          if ! scp -o ConnectTimeout=30 release.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/blue-lock-project/release.tar.gz; then
+             echo "Upload failed, retrying in 10s..."
+             sleep 10
+             scp -o ConnectTimeout=60 release.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/blue-lock-project/release.tar.gz
+          fi
+
+          echo "2. Executing remote commands..."
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
             set -e
             cd ~/blue-lock-project
-
-            echo "Unpacking files..."
-            # 解压覆盖
-            tar -xzvf release.tar.gz
-
-            # 删除压缩包
+            
+            # 解压
+            mkdir -p backend
+            tar -xzvf release.tar.gz -C backend/
             rm release.tar.gz
-
-            echo "Restarting Docker containers..."
-            # 重启服务
+            
+            # 重启
+            cd backend
             docker compose down
             docker compose up -d --force-recreate
-
-            # 清理无用镜像
             docker image prune -f
-
-            echo "Deployment Success!"
+          EOF

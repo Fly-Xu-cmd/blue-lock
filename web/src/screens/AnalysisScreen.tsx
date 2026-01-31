@@ -11,26 +11,21 @@ import {
   Space,
   Tag,
   message,
+  Empty,
 } from "antd";
 import {
   BarChartOutlined,
   LockOutlined,
   UnlockOutlined,
-  ScanOutlined,
   LinkOutlined,
 } from "@ant-design/icons";
 import "./AnalysisScreen.css";
-import { addOperationRecord, getAnalysis } from "@/apis/analysis";
+import { getAnalysis } from "@/apis/analysis";
 import { logoutApi } from "@/apis/register";
 import type { AnalysisResponse } from "@/apis/types/analysis";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
-const TimeRangeName = {
-  1: "每日数据",
-  2: "每周数据",
-  3: "每月数据",
-};
 
 // interface DailyData {
 //   day: string;
@@ -201,17 +196,6 @@ const AnalysisScreen: React.FC = () => {
           <Space>
             <Button
               type="primary"
-              onClick={() =>
-                addOperationRecord({
-                  type: 1,
-                  operation_content: "锁手机",
-                })
-              }
-            >
-              测试新增接口
-            </Button>
-            <Button
-              type="primary"
               onClick={navigateToHome}
               size="middle"
               style={{ marginRight: 8 }}
@@ -259,7 +243,7 @@ const AnalysisScreen: React.FC = () => {
           <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
             {statCards.map((card, index) => (
               <Col xs={24} sm={12} md={8} key={index}>
-                <Card hoverable className="stat-card">
+                <Card hoverable={false} className="stat-card">
                   <div
                     style={{
                       display: "flex",
@@ -314,10 +298,38 @@ const AnalysisScreen: React.FC = () => {
                     gap: "8px",
                   }}
                 >
-                  {behaviorData?.recordList.map((item: any, index: number) => (
+                  {behaviorData?.recordList?.length > 0 ? (
+                    behaviorData?.recordList.map((item: any, index: number) => (
+                      <div
+                        key={index}
+                        className="action-item"
+                        style={{
+                          padding: "12px",
+                          border: "1px solid #f0f0f0",
+                          borderRadius: "4px",
+                          transition: "all 0.3s",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            marginBottom: "4px",
+                          }}
+                        >
+                          <Text
+                            strong
+                          >{`${item.user_name}：${item.operation_content}`}</Text>
+                          <Tag color="blue">{"蓝牙密码箱"}</Tag>
+                        </div>
+                        <Text type="secondary" style={{ fontSize: "12px" }}>
+                          {item.operate_time}
+                        </Text>
+                      </div>
+                    ))
+                  ) : (
                     <div
-                      key={index}
-                      className="action-item"
                       style={{
                         padding: "12px",
                         border: "1px solid #f0f0f0",
@@ -325,24 +337,17 @@ const AnalysisScreen: React.FC = () => {
                         transition: "all 0.3s",
                       }}
                     >
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          marginBottom: "4px",
-                        }}
-                      >
-                        <Text
-                          strong
-                        >{`${item.user_name}：${item.operation_content}`}</Text>
-                        <Tag color="blue">{"蓝牙密码箱"}</Tag>
-                      </div>
-                      <Text type="secondary" style={{ fontSize: "12px" }}>
-                        {item.operate_time}
-                      </Text>
+                      <Empty
+                        image={Empty.PRESENTED_IMAGE_SIMPLE}
+                        style={{ height: 60 }}
+                        description={
+                          <span>
+                            <Text type="secondary">暂无操作记录</Text>
+                          </span>
+                        }
+                      />
                     </div>
-                  ))}
+                  )}
                 </div>
               </Card>
             </Col>
