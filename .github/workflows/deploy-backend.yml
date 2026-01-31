@@ -35,7 +35,7 @@ jobs:
           known_hosts: unnecessary # 忽略 host key 检查
           if_key_exists: replace
 
-      # 3. 使用原生 SCP 和 SSH 上传并部署 (增加重试机制)
+      # 3. 使用原生 SCP 和 SSH 上传并部署
       - name: Deploy with Retry
         run: |
           # 添加服务器到 known_hosts 以防询问
@@ -43,11 +43,11 @@ jobs:
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
           echo "1. Uploading file (attempt 1)..."
-          # 使用原生 scp，-o ServerAliveInterval 保持连接活跃
-          if ! scp -o ConnectTimeout=30 release.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/blue-lock-project/release.tar.gz; then
+          # 关键修改：这里的源文件路径改为 backend/release.tar.gz
+          if ! scp -o ConnectTimeout=30 backend/release.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/blue-lock-project/release.tar.gz; then
              echo "Upload failed, retrying in 10s..."
              sleep 10
-             scp -o ConnectTimeout=60 release.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/blue-lock-project/release.tar.gz
+             scp -o ConnectTimeout=60 backend/release.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/blue-lock-project/release.tar.gz
           fi
 
           echo "2. Executing remote commands..."
@@ -57,6 +57,7 @@ jobs:
             
             # 解压
             mkdir -p backend
+            # 注意：解压时我们需要告诉 tar 解压到哪里
             tar -xzvf release.tar.gz -C backend/
             rm release.tar.gz
             
