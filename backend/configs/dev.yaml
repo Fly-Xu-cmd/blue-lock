@@ -1,12 +1,12 @@
 database:
-  host: "localhost"
+  host: "mysql_db"
   port: 3306
   user: "root"
   password: "123456"
   name: "bluebox"
 
 redis:
-  host: "localhost"
+  host: "redis_db"
   port: 6379
   password: "123456"
   db: 0
