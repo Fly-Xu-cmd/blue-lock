@@ -7,8 +7,9 @@ import (
 	"backend/internal/request"
 	"backend/internal/response"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 // UserOperationCtrl 用户操作蓝牙密码箱记录
@@ -28,7 +29,7 @@ func UserOperationCtrl() func(ctx *gin.Context) {
 		var req request.UserOperationReq
 		if err := ctx.ShouldBind(&req); err != nil {
 			ctx.JSON(http.StatusBadRequest, response.ErrorResponse{
-				Code:    http.StatusBadRequest,
+				Code:    globals.StatusBadRequest,
 				Message: "参数绑定错误",
 				Error:   fmt.Sprintf("参数绑定错误 err: %s", err),
 			})
@@ -38,14 +39,14 @@ func UserOperationCtrl() func(ctx *gin.Context) {
 		res, err := userLogic.CreateUserOperation(ctx, &req)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, response.ErrorResponse{
-				Code:    http.StatusInternalServerError,
+				Code:    globals.StatusInternalServerError,
 				Message: "添加用户操作记录出现错误",
 				Error:   fmt.Sprintf("添加用户操作记录出现错误 err: %s", err),
 			})
 			return
 		}
 		ctx.JSON(http.StatusOK, response.Success{
-			Code: http.StatusOK,
+			Code: globals.StatusOK,
 			Data: res,
 		})
 	}
@@ -83,7 +84,7 @@ func GetOperationRecord() func(ctx *gin.Context) {
 			})
 		}
 		ctx.JSON(http.StatusOK, response.Success{
-			Code: http.StatusOK,
+			Code: globals.StatusOK,
 			Data: res,
 		})
 	}

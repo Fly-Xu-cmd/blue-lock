@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -33,7 +34,10 @@ func (r *LoginRepository) ExistsByEmail(c context.Context, email string) (bool, 
 		Where("deleted_at IS NULL").
 		Count(&count).
 		Error
-	return count > 0, fmt.Errorf("该用户已存在:%v", err)
+	if err != nil {
+		return false, fmt.Errorf("查询用户邮箱是否,存在错误: %w", err)
+	}
+	return count > 0, nil
 }
 
 // GetUserByID 根据id查询用户

@@ -11,12 +11,13 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
-	"github.com/go-redis/redis/v8"
-	"golang.org/x/crypto/bcrypt"
 	"math/rand"
 	"net/smtp"
 	"strings"
 	"time"
+
+	"github.com/go-redis/redis/v8"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/patrickmn/go-cache"
 )
@@ -208,7 +209,7 @@ func (l *LoginLogic) VerifyMes(ctx context.Context, req *request.RegisterByVerif
 	// 2. 判断邮箱是否存在
 	isExists, err := l.repo.ExistsByEmail(ctx, req.Email)
 	if err != nil {
-		return fmt.Errorf("该用户已存在")
+		return fmt.Errorf("该用户已存在: %w", err)
 	}
 	if isExists {
 		return fmt.Errorf("已经存在邮箱为 %v 的用户", req.Email)

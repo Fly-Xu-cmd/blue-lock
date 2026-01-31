@@ -12,6 +12,8 @@ WORKDIR /app
 COPY main .
 COPY configs ./configs
 
+RUN chmod +x ./main
+
 # 创建日志目录
 RUN mkdir -p /app/logs && chmod 777 /app/logs
 

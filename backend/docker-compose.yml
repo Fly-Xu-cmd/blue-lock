@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   # 1. 你的后端服务
   app:
     # --- 新增下面这一行 ---
-    build: .   # 告诉 docker 在当前目录寻找 Dockerfile 进行构建
+    build: . # 告诉 docker 在当前目录寻找 Dockerfile 进行构建
     # ---------------------
     image: leyinlinn/blue-lock-backend:1.0
     ports:
@@ -18,8 +16,8 @@ services:
   mysql_db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: 123456  # 必须和 yaml 里的密码一致
-      MYSQL_DATABASE: bluebox             # 自动创建名为 bluebox 的数据库
+      MYSQL_ROOT_PASSWORD: 123456 # 必须和 yaml 里的密码一致
+      MYSQL_DATABASE: bluebox # 自动创建名为 bluebox 的数据库
     ports:
       - "3307:3306"
     volumes:

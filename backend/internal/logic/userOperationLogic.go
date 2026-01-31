@@ -44,7 +44,8 @@ func (l *UserLogic) CreateUserOperation(
 		OperationDes:     des,
 		OperationContent: req.OperationContent,
 	}
-	if err := l.repo.CreateUserOperationRecord(ctx, userOperation); err != nil {
+	err = l.repo.CreateUserOperationRecord(ctx, userOperation)
+	if err != nil {
 		return nil, err
 	}
 	user, err := l.repo.GetUserOperationRecord(ctx, userOperation.ID)
@@ -90,6 +91,7 @@ func (l *UserLogic) GetOperateRecord(
 			ID:               u.ID,
 			UserName:         u.UserName,
 			OperationContent: u.OperationContent,
+			OperationDes:     u.OperationDes,
 			OperateTime:      u.CreatedAt.Format("2006-01-02 15:04:05"),
 		})
 	}
