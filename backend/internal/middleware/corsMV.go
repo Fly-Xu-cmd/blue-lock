@@ -1,48 +1,45 @@
 package middleware
 
 import (
-	"net/http"
-
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
-// CorsMiddleware 跨域中间件
 func CorsMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		method := c.Request.Method
-		origin := c.Request.Header.Get("Origin")
+	config := cors.DefaultConfig()
 
-		// 允许前端的域名列表
-		allowedOrigins := map[string]bool{
-			"http://127.0.0.1:7000":     true,
-			"http://localhost:7000":     true,
-			"http://bluebox.xylxf.xyz":  true,
-			"https://bluebox.xylxf.xyz": true,
-		}
-
-		// 判断 origin 是否在允许列表内
-		if allowedOrigins[origin] {
-			c.Header("Access-Control-Allow-Origin", origin)
-			// 设置允许的 HTTP 方法，浏览器会校验请求方法是否在以下列表
-			c.Header(
-				"Access-Control-Allow-Methods",
-				"POST, GET, OPTIONS, PUT, DELETE, UPDATE, PATCH",
-			)
-			// 设置可以暴露出来的响应头
-			c.Header(
-				"Access-Control-Expose-Headers",
-				"Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, "+
-					"Cache-Control, Content-Language, Content-Type, X-Csrf-Token",
-			)
-			// 允许跨域请求携带 Cookie
-			c.Header("Access-Control-Allow-Credentials", "true")
-		}
-		// 处理预检请求（一种探路请求，不带body）
-		if method == "OPTIONS" {
-			// 直接返回 204 状态码，表示接受预检请求，然后等待浏览器下一次发送请求
-			c.AbortWithStatus(http.StatusNoContent)
-			return
-		}
-		c.Next()
+	// 允许的域名列表
+	config.AllowOrigins = []string{
+		"http://localhost:7000",
+		"http://127.0.0.1:7000",
+		"http://bluebox.xylxf.xyz",
+		"https://bluebox.xylxf.xyz",
+		// 如果你需要允许所有域名（开发环境），可以用 config.AllowAllOrigins = true
 	}
+
+	// 允许的请求头（这一步非常关键！）
+	// 必须包含 Authorization (鉴权) 和 Content-Type (JSON数据)
+	config.AllowHeaders = []string{
+		"Origin",
+		"Content-Length",
+		"Content-Type",
+		"Authorization",
+		"X-Requested-With",
+	}
+
+	// 允许携带 Cookie
+	config.AllowCredentials = true
+
+	// 允许前端读取的响应头
+	config.ExposeHeaders = []string{
+		"Content-Length",
+		"Access-Control-Allow-Origin",
+		"Access-Control-Allow-Headers",
+		"Content-Type",
+	}
+
+	// 预检请求缓存时间（减少 OPTIONS 请求频率）
+	// config.MaxAge = 12 * time.Hour
+
+	return cors.New(config)
 }

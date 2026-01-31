@@ -5,12 +5,21 @@ import (
 	"backend/internal/middleware"
 	"backend/internal/pkg/globals"
 	"backend/internal/pkg/token"
+
 	"github.com/gin-gonic/gin"
 )
 
 // EmailLoginRouter 邮箱登录注册路由
-func EmailLoginRouter(r *gin.Engine) {
-	login := r.Group("/login")
+func EmailLoginRouter(r interface{}) {
+	// 统一处理Engine和RouterGroup
+	var routerGroup *gin.RouterGroup
+	if engine, ok := r.(*gin.Engine); ok {
+		routerGroup = engine.Group("")
+	} else if group, ok := r.(*gin.RouterGroup); ok {
+		routerGroup = group
+	}
+
+	login := routerGroup.Group("/login")
 	// 发送验证码接口
 	login.POST("/sendVerificationCode", controller.SendVerificationCode())
 	// 注册接口
