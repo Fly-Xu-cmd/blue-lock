@@ -18,7 +18,7 @@ services:
       MYSQL_ROOT_PASSWORD: 123456  # 必须和 yaml 里的密码一致
       MYSQL_DATABASE: bluebox             # 自动创建名为 bluebox 的数据库
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       # 自动建表：把你的 sql 文件放进 backend/init_sql 文件夹
       - ./init_sql:/docker-entrypoint-initdb.d

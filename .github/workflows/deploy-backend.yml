@@ -1,0 +1,48 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "backend/**" # 只有 backend 目录下有变动时才触发
+      - ".github/workflows/deploy-backend.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 1. 将 backend 目录下的文件通过 SCP 拷贝到服务器
+      - name: Copy files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "backend/"
+          target: "/opt/blue-lock-project" # 服务器上的目标目录，会自动创建
+          strip_components: 0 # 保持目录结构，上传后服务器上会有 /opt/blue-lock-project/backend
+
+      # 2. 远程执行命令：重启 Docker 服务
+      - name: Remote SSH commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Starting deployment..."
+            cd /opt/blue-lock-project/backend
+
+            # 停止旧容器（如果有）
+            docker-compose down
+
+            # 重新构建并启动（-d 后台运行，--build 强制重构镜像）
+            docker-compose up -d --build
+
+            # 清理无用的虚悬镜像，释放磁盘空间
+            docker image prune -f
+
+            echo "Deployment finished!"
