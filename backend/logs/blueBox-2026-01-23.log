@@ -1,0 +1,9 @@
+{"level":"INFO","ts":"2026-01-23T15:36:40.163+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2026-01-23T15:36:40.371+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"PANIC","ts":"2026-01-23T15:36:40.449+0800","caller":"init/redisInit.go:46","msg":"Redis连接失败: dial tcp [::1]:6379: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"INFO","ts":"2026-01-23T15:38:07.805+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2026-01-23T15:38:07.885+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2026-01-23T15:38:07.888+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2026-01-23T16:27:06.716+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2026-01-23T16:27:06.842+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2026-01-23T16:27:06.844+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}

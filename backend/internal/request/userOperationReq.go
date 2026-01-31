@@ -14,6 +14,7 @@ type GetOperationRecordReq struct {
 	UserName      string `json:"user_name"`
 	OperationType uint   `json:"operation_type"`
 	Operation     string `json:"operation"`
+	TimePeriod    int    `json:"time_period" form:"time_period"`
 	Page          int    `json:"page"        form:"page"`
 	PageSize      int    `json:"page_size"   form:"page_size"`
 }

@@ -1,0 +1,7 @@
+{"level":"FATAL","ts":"2026-01-22T11:34:51.740+0800","caller":"init/dbInit.go:35","msg":"连接数据库失败: dial tcp: lookup mysql_db: no such host"}
+{"level":"INFO","ts":"2026-01-22T11:35:31.180+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2026-01-22T11:35:31.396+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"PANIC","ts":"2026-01-22T11:35:31.479+0800","caller":"init/redisInit.go:46","msg":"Redis连接失败: dial tcp [::1]:6379: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"INFO","ts":"2026-01-22T11:36:01.739+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2026-01-22T11:36:01.830+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2026-01-22T11:36:01.833+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
