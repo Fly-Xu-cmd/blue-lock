@@ -23,7 +23,12 @@ jobs:
       - name: Build Binary
         run: |
           cd backend
+          # 编译 Linux 二进制文件
           CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o main .
+          
+          # 【安全措施】在压缩前先给文件加一次执行权限
+          chmod +x main
+          
           # 打包以加速传输
           tar -czvf release.tar.gz main configs Dockerfile docker-compose.yml
 
@@ -43,7 +48,7 @@ jobs:
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
           echo "1. Uploading file (attempt 1)..."
-          # 关键修改：这里的源文件路径改为 backend/release.tar.gz
+          # 注意：这里的源文件路径是 backend/release.tar.gz
           if ! scp -o ConnectTimeout=30 backend/release.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/blue-lock-project/release.tar.gz; then
              echo "Upload failed, retrying in 10s..."
              sleep 10
@@ -57,13 +62,20 @@ jobs:
             
             # 解压
             mkdir -p backend
-            # 注意：解压时我们需要告诉 tar 解压到哪里
+            # 解压覆盖
             tar -xzvf release.tar.gz -C backend/
             rm release.tar.gz
             
-            # 重启
+            # 重启服务
             cd backend
             docker compose down
-            docker compose up -d --force-recreate
+            
+            # 【核心修改】必须加上 --build，强制使用新上传的 Dockerfile 和 main 文件重新构建镜像
+            # 因为我们的 Dockerfile 只是 COPY 操作，这个构建过程只需 1 秒，非常快且不耗内存
+            docker compose up -d --build --force-recreate
+            
+            # 清理无用的虚悬镜像
             docker image prune -f
+            
+            echo "✅ Deployment Successful!"
           EOF
