@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "backend/**" # 只有 backend 目录下有变动时才触发
+      - "backend/**"
       - ".github/workflows/deploy-backend.yml"
 
 jobs:
@@ -14,18 +14,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 1. 将 backend 目录下的文件通过 SCP 拷贝到服务器
+      # 1. 设置 Go 环境 (使用 GitHub 的服务器)
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+
+      # 2. 【关键】在 GitHub Runner 上编译二进制文件
+      - name: Build Binary
+        run: |
+          cd backend
+          # 静态编译，确保在 Alpine Linux 上能运行
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main .
+          chmod +x main
+
+      # 3. 将编译好的 main 文件连同配置一起传给服务器
       - name: Copy files to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "backend/"
-          target: "blue-lock-project" # 服务器上的目标目录，会自动创建
-          strip_components: 0 # 保持目录结构，上传后服务器上会有 /opt/blue-lock-project/backend
+          source: "backend/" # 这会包含刚才编译出来的 main 文件
+          target: "blue-lock-project"
+          strip_components: 0
 
-      # 2. 远程执行命令：重启 Docker 服务
+      # 4. 远程命令：直接启动（无需 build）
       - name: Remote SSH commands
         uses: appleboy/ssh-action@master
         with:
@@ -33,17 +47,18 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            set -e # 任何命令失败则立即退出
-            echo "Starting deployment..."
-            cd ~/blue-lock-project/backend || cd blue-lock-project/backend
+            set -e
+            cd ~/blue-lock-project/backend
 
-            # 停止旧容器（如果有）
+            echo "Reloading containers..."
+            # 停止旧服务
             docker compose down
 
-            # 重新构建并启动（-d 后台运行，--build 强制重构镜像）
-            docker compose up -d --build
+            # 启动服务 (注意：这里不需要 --build 了，因为是从本地 Dockerfile 启动)
+            # 但为了确保使用新的 main 文件，我们强制重新创建容器
+            docker compose up -d --force-recreate
 
-            # 清理无用的虚悬镜像，释放磁盘空间
+            # 清理旧镜像
             docker image prune -f
 
             echo "Deployment finished!"

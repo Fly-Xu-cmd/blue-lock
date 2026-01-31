@@ -1,21 +1,18 @@
-# 使用官方镜像名，去除 m.daocloud.io 前缀
-# 注意：改为 1.23 或 1.22，确保有对应镜像
-FROM golang:1.24-alpine AS builder
-
-WORKDIR /build
-ENV GOPROXY=https://goproxy.io,direct
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
-
-# 运行阶段也改回官方镜像
+# --- 运行阶段 ---
+# 直接使用轻量级 Alpine 镜像，不再包含 Go 环境
 FROM alpine:latest
+
+# 安装必要的基础库
 RUN apk add --no-cache ca-certificates tzdata
+
 WORKDIR /app
 
-COPY --from=builder /build/main .
+# 【关键】直接拷贝外面编译好的二进制文件 'main'
+# 注意：这一步假设 main 文件已经存在于当前目录下
+COPY main .
 COPY configs ./configs
+
+# 创建日志目录
 RUN mkdir -p /app/logs && chmod 777 /app/logs
 
 EXPOSE 8090
