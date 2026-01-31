@@ -1,8 +1,9 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 // CorsMiddleware 跨域中间件
@@ -13,8 +14,10 @@ func CorsMiddleware() gin.HandlerFunc {
 
 		// 允许前端的域名列表
 		allowedOrigins := map[string]bool{
-			"http://127.0.0.1:7000": true,
-			"http://localhost:7000": true,
+			"http://127.0.0.1:7000":     true,
+			"http://localhost:7000":     true,
+			"http://bluebox.xylxf.xyz":  true,
+			"https://bluebox.xylxf.xyz": true,
 		}
 
 		// 判断 origin 是否在允许列表内
