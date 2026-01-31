@@ -35,9 +35,11 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "backend/" # 这会包含刚才编译出来的 main 文件
+          # 关键修改：只上传 main 和 configs，排除 unnecessary 的源码和 logs
+          source: "backend/main,backend/configs,backend/Dockerfile,backend/docker-compose.yml"
           target: "blue-lock-project"
           strip_components: 0
+          timeout: "120s" # 增加超时时间，防止网络波动导致中断
 
       # 4. 远程命令：直接启动（无需 build）
       - name: Remote SSH commands
