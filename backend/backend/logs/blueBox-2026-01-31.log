@@ -1,1 +1,14 @@
 {"level":"FATAL","ts":"2026-01-31T11:05:23.011+0800","caller":"init/dbInit.go:35","msg":"连接数据库失败: dial tcp 127.0.0.1:3306: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"FATAL","ts":"2026-01-31T15:35:32.215+0800","caller":"init/dbInit.go:35","msg":"连接数据库失败: dial tcp: lookup mysql_db: no such host"}
+{"level":"FATAL","ts":"2026-01-31T15:35:49.166+0800","caller":"init/dbInit.go:35","msg":"连接数据库失败: Error 1049 (42000): Unknown database 'bluebox'"}
+{"level":"INFO","ts":"2026-01-31T15:37:03.372+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2026-01-31T15:37:04.270+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"PANIC","ts":"2026-01-31T15:37:04.278+0800","caller":"init/redisInit.go:46","msg":"Redis连接失败: NOAUTH Authentication required."}
+{"level":"INFO","ts":"2026-01-31T15:40:32.681+0800","caller":"init/dbInit.go:54","msg":"数据库连接初始化及测试成功"}
+{"level":"INFO","ts":"2026-01-31T15:40:32.820+0800","caller":"init/dbInit.go:73","msg":"数据库表初始化成功"}
+{"level":"INFO","ts":"2026-01-31T15:40:32.823+0800","caller":"init/redisInit.go:48","msg":"Redis连接成功"}
+{"level":"INFO","ts":"2026-01-31T15:42:11.711+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 831168, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2026-01-31T15:42:18.220+0800","caller":"logic/loginLogic.go:70","msg":"验证码已存储到Redis，key: verify_code:1551681944@qq.com, code: 432358, email: 1551681944@qq.com"}
+{"level":"INFO","ts":"2026-01-31T15:44:21.548+0800","caller":"logic/loginLogic.go:225","msg":"尝试从Redis读取验证码，key: verify_code:1551681944@qq.com, email: 1551681944@qq.com, 输入的code: 432358"}
+{"level":"INFO","ts":"2026-01-31T15:44:21.549+0800","caller":"logic/loginLogic.go:238","msg":"从Redis读取到验证码，key: verify_code:1551681944@qq.com, storedCode: 432358, inputCode: 432358"}
+{"level":"INFO","ts":"2026-01-31T15:44:21.550+0800","caller":"logic/loginLogic.go:243","msg":"验证码验证成功，已删除key: verify_code:1551681944@qq.com"}

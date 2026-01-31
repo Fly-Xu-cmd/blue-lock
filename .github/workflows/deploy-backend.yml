@@ -14,34 +14,42 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 1. 设置 Go 环境 (使用 GitHub 的服务器)
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: "1.24"
 
-      # 2. 【关键】在 GitHub Runner 上编译二进制文件
-      - name: Build Binary
+      # 1. 编译 + 压缩 (关键步骤)
+      - name: Build and Compress
         run: |
           cd backend
-          # 静态编译，确保在 Alpine Linux 上能运行
-          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main .
-          chmod +x main
 
-      # 3. 将编译好的 main 文件连同配置一起传给服务器
-      - name: Copy files to server
+          echo "1. Building Binary..."
+          # -ldflags="-s -w" 去掉符号表，大幅减小体积
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o main .
+
+          echo "2. Compressing files..."
+          # 将所有需要的文件打包成一个 release.tar.gz
+          # 包含: 二进制文件, 配置文件, Dockerfile, docker-compose.yml
+          tar -czvf release.tar.gz main configs Dockerfile docker-compose.yml
+
+          echo "File size:"
+          ls -lh release.tar.gz
+
+      # 2. 只上传这一个压缩包
+      - name: Copy compressed file to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # 关键修改：只上传 main 和 configs，排除 unnecessary 的源码和 logs
-          source: "backend/main,backend/configs,backend/Dockerfile,backend/docker-compose.yml"
-          target: "blue-lock-project"
-          strip_components: 0
-          timeout: "120s" # 增加超时时间，防止网络波动导致中断
+          source: "backend/release.tar.gz"
+          target: "blue-lock-project" # 上传到服务器的这个目录
+          strip_components: 1 # 去掉本地的 'backend/' 前缀，直接把文件放到 target 目录
+          timeout: "600s" # 设置 10 分钟超时，防止断开
+          debug: true # 开启调试模式，看看到底卡在哪
 
-      # 4. 远程命令：直接启动（无需 build）
+      # 3. 远程解压并重启
       - name: Remote SSH commands
         uses: appleboy/ssh-action@master
         with:
@@ -50,17 +58,21 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-            cd ~/blue-lock-project/backend
+            cd ~/blue-lock-project
 
-            echo "Reloading containers..."
-            # 停止旧服务
+            echo "Unpacking files..."
+            # 解压覆盖
+            tar -xzvf release.tar.gz
+
+            # 删除压缩包
+            rm release.tar.gz
+
+            echo "Restarting Docker containers..."
+            # 重启服务
             docker compose down
-
-            # 启动服务 (注意：这里不需要 --build 了，因为是从本地 Dockerfile 启动)
-            # 但为了确保使用新的 main 文件，我们强制重新创建容器
             docker compose up -d --force-recreate
 
-            # 清理旧镜像
+            # 清理无用镜像
             docker image prune -f
 
-            echo "Deployment finished!"
+            echo "Deployment Success!"

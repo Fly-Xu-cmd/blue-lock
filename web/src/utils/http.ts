@@ -95,8 +95,8 @@ class HttpRequest {
       (response: AxiosResponse<ApiResponse>) => {
         const { data } = response;
 
-        // 如果响应码不是 200，视为错误
-        if (data.code !== 200) {
+        // 如果响应码不是 2000，视为错误
+        if (data.code !== 2000) {
           const error = new Error(data.message || "请求失败");
           (error as any).code = data.code;
           (error as any).data = data.data;
