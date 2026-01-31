@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { message } from "antd";
+import { Card, Form, Input, Button, message, Row, Col } from "antd";
 import {
   getVerificationCodeApi,
   loginApi,
@@ -13,203 +13,138 @@ import "./LoginScreen.css";
  * 提供账号密码登录和注册功能
  */
 export default function LoginScreen() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [verifyCode, setVerifyCode] = useState("");
   const [isRegister, setIsRegister] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [codeLoading, setCodeLoading] = useState(false);
+  const [form] = Form.useForm();
   const navigate = useNavigate();
-
-  // 验证邮箱格式
-  const validateEmail = (emailValue: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(emailValue);
-  };
 
   // 获取验证码
   const getVerificationCode = async () => {
-    if (!email) {
-      message.warning("请输入邮箱");
-      return;
-    }
-    if (!validateEmail(email)) {
-      message.warning("请输入有效的邮箱地址");
-      return;
-    }
-
-    setCodeLoading(true);
     try {
+      // 验证邮箱格式
+      await form.validateFields(["email"]);
+      const email = form.getFieldValue("email");
+
+      setCodeLoading(true);
       await getVerificationCodeApi({ email });
       message.success("验证码已发送，请查收邮箱");
       setCodeLoading(false);
     } catch (error: any) {
-      message.error(error.message || "获取验证码失败，请稍后重试");
+      message.error(error.message || "请先输入有效的邮箱地址");
       setCodeLoading(false);
     }
   };
 
-  // 处理登录按钮点击
-  const handleLogin = async () => {
-    if (!email) {
-      message.warning("请输入邮箱");
-      return;
-    }
-    if (!validateEmail(email)) {
-      message.warning("请输入有效的邮箱地址");
-      return;
-    }
-    if (!password) {
-      message.warning("请输入密码");
-      return;
-    }
-
-    setLoading(true);
+  // 处理登录
+  const handleLogin = async (values: any) => {
     try {
-      const res = await loginApi({ email, password });
+      const res = await loginApi(values);
       // 保存token到localStorage
       localStorage.setItem("blue_lock:access_token", res.data.access_token);
       localStorage.setItem("blue_lock:refresh_token", res.data.refresh_token);
       message.success("登录成功");
       navigate("/home");
-      setLoading(false);
     } catch (error: any) {
       message.error(error.message || "登录失败，请稍后重试");
-      setLoading(false);
     }
   };
 
-  // 处理注册按钮点击
-  const handleRegister = async () => {
-    if (!isRegister) {
-      // 切换到注册模式
-      setIsRegister(true);
-      return;
-    }
-
-    // 执行注册逻辑
-    if (!email) {
-      message.warning("请输入邮箱");
-      return;
-    }
-    if (!validateEmail(email)) {
-      message.warning("请输入有效的邮箱地址");
-      return;
-    }
-    if (!password) {
-      message.warning("请输入密码");
-      return;
-    }
-    if (password.length < 6) {
-      message.warning("密码长度至少为6位");
-      return;
-    }
-    if (!verifyCode) {
-      message.warning("请输入验证码");
-      return;
-    }
-
-    setLoading(true);
+  // 处理注册
+  const handleRegister = async (values: any) => {
     try {
-      await registerApi({ email, password, code: verifyCode });
+      await registerApi(values);
       message.success("注册成功，请登录");
       setIsRegister(false);
-      setVerifyCode("");
-      setLoading(false);
+      form.resetFields();
     } catch (error: any) {
       message.error(error.message || "注册失败，请稍后重试");
-      setLoading(false);
     }
+  };
+
+  // 切换登录/注册模式
+  const toggleMode = () => {
+    setIsRegister(!isRegister);
+    form.resetFields();
   };
 
   return (
     <div className="login-container">
-      <div className="login-form">
-        <h1 className="login-title">蓝牙密码箱</h1>
-
-        <div className="form-group">
-          <label className="form-label">邮箱</label>
-          <input
-            type="email"
-            className="form-input"
-            placeholder="请输入邮箱"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={loading}
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">密码</label>
-          <input
-            type="password"
-            className="form-input"
-            placeholder="请输入密码"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={loading}
-          />
-        </div>
-
-        {isRegister && (
-          <div className="form-group">
-            <div className="verify-code-container">
-              <div className="verify-code-input-wrapper">
-                <label className="form-label">验证码</label>
-                <input
-                  type="text"
-                  className="form-input verify-code-input"
-                  placeholder="请输入验证码"
-                  value={verifyCode}
-                  onChange={(e) => setVerifyCode(e.target.value)}
-                  disabled={loading || codeLoading}
-                />
-              </div>
-              <button
-                className="verify-code-btn"
-                onClick={getVerificationCode}
-                disabled={
-                  loading || codeLoading || !email || !validateEmail(email)
-                }
-              >
-                {codeLoading ? "发送中..." : "获取验证码"}
-              </button>
-            </div>
-          </div>
-        )}
-
-        <button
-          className="login-btn"
-          onClick={isRegister ? handleRegister : handleLogin}
-          disabled={loading}
+      <Card
+        title="蓝牙密码箱"
+        className="login-card"
+        
+        style={{ width: 400, boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)" }}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={isRegister ? handleRegister : handleLogin}
         >
-          {loading ? "处理中..." : isRegister ? "注册" : "登录"}
-        </button>
+          <Form.Item
+            name="email"
+            label="邮箱"
+            rules={[
+              { required: true, message: "请输入邮箱" },
+              { type: "email", message: "请输入有效的邮箱地址" },
+            ]}
+          >
+            <Input placeholder="请输入邮箱" type="email" />
+          </Form.Item>
 
-        <div className="register-toggle">
-          {isRegister ? (
-            <span>
-              已有账号？{" "}
-              <button
-                className="toggle-btn"
-                onClick={() => setIsRegister(false)}
-              >
-                立即登录
-              </button>
-            </span>
-          ) : (
-            <span>
-              没有账号？{" "}
-              <button
-                className="toggle-btn"
-                onClick={() => setIsRegister(true)}
-              >
-                立即注册
-              </button>
-            </span>
+          <Form.Item
+            name="password"
+            label="密码"
+            rules={[
+              { required: true, message: "请输入密码" },
+              { min: 6, message: "密码长度至少为6位" },
+            ]}
+          >
+            <Input.Password placeholder="请输入密码" />
+          </Form.Item>
+
+          {isRegister && (
+            <Form.Item
+              name="code"
+              label="验证码"
+              rules={[{ required: true, message: "请输入验证码" }]}
+            >
+              <Row gutter={8}>
+                <Col span={16}>
+                  <Input placeholder="请输入验证码" />
+                </Col>
+                <Col span={8}>
+                  <Button
+                    type="primary"
+                    onClick={getVerificationCode}
+                    loading={codeLoading}
+                    disabled={codeLoading}
+                    block
+                  >
+                    {codeLoading ? "发送中..." : "获取验证码"}
+                  </Button>
+                </Col>
+              </Row>
+            </Form.Item>
           )}
-        </div>
-      </div>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" size="large" block>
+              {isRegister ? "注册" : "登录"}
+            </Button>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="link"
+              onClick={toggleMode}
+              block
+              style={{ marginBottom: 0 }}
+            >
+              {isRegister ? "已有账号？立即登录" : "没有账号？立即注册"}
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   );
 }

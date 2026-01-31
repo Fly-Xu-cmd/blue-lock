@@ -33,8 +33,9 @@ func (l *UserLogic) CreateUserOperation(
 	var des string
 	if req.Type == 1 {
 		des = "关锁"
+	} else {
+		des = "开锁"
 	}
-	des = "开锁"
 	userOperation := &models.UserOperation{
 		UserID:           req.UserID,
 		UserName:         name,

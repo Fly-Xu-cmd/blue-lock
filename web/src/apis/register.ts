@@ -1,4 +1,4 @@
-import { http } from '../utils/http';
+import { http } from "../utils/http";
 
 import {
   RegisterData,
@@ -10,14 +10,14 @@ import {
   LogoutResponse,
   VerifyCodeResponse,
   VerifyCodeRequest,
-} from './types/register';
+} from "./types/register";
 
 const urls = {
-  getVerificationCode: '/login/sendVerificationCode',
-  register: '/login/register/emailRegister',
-  login: '/login/emailLogin',
-  loginOut: '/login/logout',
-  refreshToken: '/login/refreshToken',
+  getVerificationCode: "/api/login/sendVerificationCode",
+  register: "/api/login/register/emailRegister",
+  login: "/api/login/emailLogin",
+  loginOut: "/api/login/logout",
+  refreshToken: "/api/login/refreshToken",
 };
 
 /**
@@ -40,20 +40,20 @@ export const registerApi = (params: RegisterParams) => {
 
 /**
  * 登录API
- * @param params 登录参数
+ * @param data 登录参数
  * @returns Promise<LoginData>
  */
-export const loginApi = (params: LoginParams) => {
-  return http.post<LoginData>(urls.login, params);
+export const loginApi = (data: LoginParams) => {
+  return http.post<LoginData>(urls.login, data);
 };
 
 /**
  * 刷新tokenAPI
- * @param params 刷新token参数
+ * @param data 刷新token参数
  * @returns Promise<RefreshTokenData>
  */
-export const refreshTokenApi = (params: RefreshTokenParams) => {
-  return http.post<RefreshTokenData>(urls.refreshToken, params);
+export const refreshTokenApi = (data: RefreshTokenParams) => {
+  return http.post<RefreshTokenData>(urls.refreshToken, data);
 };
 
 /**

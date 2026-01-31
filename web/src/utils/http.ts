@@ -3,7 +3,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
   AxiosError,
-} from 'axios';
+} from "axios";
 
 /**
  * API响应类型接口
@@ -17,8 +17,8 @@ export interface ApiResponse<T = any> {
 /**
  * Token 存储键名
  */
-const TOKEN_KEY = 'blue_lock:access_token';
-const REFRESH_TOKEN_KEY = 'blue_lock:refresh_token';
+const TOKEN_KEY = "blue_lock:access_token";
+const REFRESH_TOKEN_KEY = "blue_lock:refresh_token";
 
 /**
  * HTTP 请求类 - 专为 Web 环境设计
@@ -36,7 +36,7 @@ class HttpRequest {
       baseURL: this.baseURL,
       timeout: 30000, // 30秒超时
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -51,20 +51,19 @@ class HttpRequest {
    * 获取 API 基础 URL
    */
   private getBaseUrl(): string {
-    // 从环境变量获取 API 基础 URL
-    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-    
+    // 在开发环境中使用相对路径，让 Vite 代理处理 CORS
+    if (import.meta.env.MODE === "development") {
+      return "/";
+    }
+
+    // 生产环境使用完整 URL
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
     if (apiBaseUrl) {
       return apiBaseUrl;
     }
 
     // 默认值 - 可以根据实际情况修改
-    const defaultUrl = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:8090'
-      : 'https://api.example.com';
-
-    console.warn(`API_BASE_URL 未配置，使用默认值: ${defaultUrl}`);
-    return defaultUrl;
+    return "https://api.example.com";
   }
 
   /**
@@ -72,7 +71,7 @@ class HttpRequest {
    */
   private setupRequestInterceptor(): void {
     this.instance.interceptors.request.use(
-      config => {
+      (config) => {
         // 从 localStorage 获取 token
         const token = localStorage.getItem(TOKEN_KEY);
         if (token) {
@@ -96,9 +95,9 @@ class HttpRequest {
       (response: AxiosResponse<ApiResponse>) => {
         const { data } = response;
 
-        // 如果响应码不是 2000，视为错误
-        if (data.code !== 2000) {
-          const error = new Error(data.message || '请求失败');
+        // 如果响应码不是 200，视为错误
+        if (data.code !== 200) {
+          const error = new Error(data.message || "请求失败");
           (error as any).code = data.code;
           (error as any).data = data.data;
           return Promise.reject(error);
@@ -115,21 +114,21 @@ class HttpRequest {
           if (status === 401) {
             await this.clearTokens();
             // 可以在这里添加跳转登录页的逻辑
-            const errorMsg = new Error(data?.message || '未授权，请重新登录');
+            const errorMsg = new Error(data?.message || "未授权，请重新登录");
             (errorMsg as any).code = 401;
             return Promise.reject(errorMsg);
           }
 
           // 403 禁止访问
           if (status === 403) {
-            const errorMsg = new Error(data?.message || '禁止访问');
+            const errorMsg = new Error(data?.message || "禁止访问");
             (errorMsg as any).code = 403;
             return Promise.reject(errorMsg);
           }
 
           // 404 未找到
           if (status === 404) {
-            const errorMsg = new Error(data?.message || '请求的资源不存在');
+            const errorMsg = new Error(data?.message || "请求的资源不存在");
             (errorMsg as any).code = 404;
             return Promise.reject(errorMsg);
           }
@@ -137,7 +136,7 @@ class HttpRequest {
           // 500 服务器错误
           if (status >= 500) {
             const errorMsg = new Error(
-              data?.message || '服务器错误，请稍后重试',
+              data?.message || "服务器错误，请稍后重试",
             );
             (errorMsg as any).code = status;
             return Promise.reject(errorMsg);
@@ -152,8 +151,8 @@ class HttpRequest {
 
         // 网络错误
         if (error.request) {
-          const errorMsg = new Error('网络连接失败，请检查网络设置');
-          (errorMsg as any).code = 'NETWORK_ERROR';
+          const errorMsg = new Error("网络连接失败，请检查网络设置");
+          (errorMsg as any).code = "NETWORK_ERROR";
           return Promise.reject(errorMsg);
         }
 
@@ -173,7 +172,7 @@ class HttpRequest {
         localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
       }
     } catch (error) {
-      console.error('保存 token 失败:', error);
+      console.error("保存 token 失败:", error);
       throw error;
     }
   }
@@ -185,7 +184,7 @@ class HttpRequest {
     try {
       return localStorage.getItem(TOKEN_KEY);
     } catch (error) {
-      console.error('获取 token 失败:', error);
+      console.error("获取 token 失败:", error);
       return null;
     }
   }
@@ -197,7 +196,7 @@ class HttpRequest {
     try {
       return localStorage.getItem(REFRESH_TOKEN_KEY);
     } catch (error) {
-      console.error('获取 refresh token 失败:', error);
+      console.error("获取 refresh token 失败:", error);
       return null;
     }
   }
@@ -210,7 +209,7 @@ class HttpRequest {
       localStorage.removeItem(TOKEN_KEY);
       localStorage.removeItem(REFRESH_TOKEN_KEY);
     } catch (error) {
-      console.error('清除 token 失败:', error);
+      console.error("清除 token 失败:", error);
     }
   }
 
@@ -290,9 +289,9 @@ class HttpRequest {
   ): Promise<ApiResponse<T>> {
     const config: AxiosRequestConfig = {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
-      onUploadProgress: progressEvent => {
+      onUploadProgress: (progressEvent) => {
         if (progressEvent.total && onUploadProgress) {
           const progress = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total,
@@ -316,7 +315,7 @@ class HttpRequest {
   async download(url: string, config?: AxiosRequestConfig): Promise<Blob> {
     const response = await this.instance.get(url, {
       ...config,
-      responseType: 'blob',
+      responseType: "blob",
     });
     return response.data;
   }
