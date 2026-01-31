@@ -63,7 +63,7 @@ class HttpRequest {
     }
 
     // 默认值 - 可以根据实际情况修改
-    return "https://api.example.com";
+    return "https://api.bluebox.xylxf.xyz";
   }
 
   /**
