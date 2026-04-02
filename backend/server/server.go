@@ -15,6 +15,7 @@ import (
 )
 
 func Run() {
+	// 初始化
 	inits.Init()
 	// 运行结束时，刷新日志的缓冲区（缓存区的信息写入到文件中）
 	defer func() {

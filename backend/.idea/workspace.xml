@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8adec062-3c6c-457e-bbfa-1577a5c0f3e6" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/logic/userOperationLogic.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/logic/userOperationLogic.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../web/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../web/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../web/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/apis/register.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/apis/register.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/screens/AnalysisScreen.css" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/screens/AnalysisScreen.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/screens/AnalysisScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/screens/AnalysisScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/screens/HomeScreen.css" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/screens/HomeScreen.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/screens/HomeScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/screens/HomeScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/screens/LoginScreen.css" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/screens/LoginScreen.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/screens/LoginScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/screens/LoginScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/utils/http.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/utils/http.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../web/tsconfig.json" afterDir="false" />
-    </list>
+    <list default="true" id="8adec062-3c6c-457e-bbfa-1577a5c0f3e6" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,9 +14,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="38eNz51wCt6plZhxnOnRTsJC3Ca" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -44,6 +29,7 @@
     "RunOnceActivity.GoLinterPluginStorageMigration": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -74,5 +60,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/request/userOperationReq.go</url>
+          <line>11</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/web/blue-lock-website/**)",
+      "Bash(npm init -y)",
+      "Bash(npm install:*)"
+    ]
+  }
+}

@@ -4,11 +4,12 @@ import (
 	"backend/internal/models"
 	"backend/internal/pkg/globals"
 	"fmt"
+	"time"
+
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
-	"time"
 )
 
 func DBInit() {

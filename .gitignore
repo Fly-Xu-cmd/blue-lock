@@ -1,0 +1,289 @@
+# ===================================
+# 操作系统文件
+# ===================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+
+# ===================================
+# IDE / 编辑器
+# ===================================
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains IDEs (IntelliJ, GoLand, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ===================================
+# Go / Backend
+# ===================================
+
+# Go 编译产物
+/backend/main
+/backend/backend
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go workspace
+/vendor/
+go.work
+go.work.sum
+
+# Air live reload 工具
+tmp/
+
+# ===================================
+# Node.js / 通用
+# ===================================
+
+# 依赖
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 构建产物
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vuepress/dist/
+
+# 缓存
+.cache/
+.parcel-cache/
+.vite/
+.turbo/
+
+# ESLint cache
+.eslintcache
+
+# Prettier cache
+.prettiercache
+
+# ===================================
+# React Native / Mobile
+# ===================================
+
+# Expo
+.expo/
+.expo-shared/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# CocoaPods
+/mobile/ios/Pods/
+/mobile/vendor/bundle/
+
+# Fastlane
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+
+# Bundle artifact
+*.jsbundle
+
+# Metro
+.metro-health-check*
+
+# Xcode
+**/build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+**/.xcode.env.local
+
+# Android
+/mobile/android/app/build/
+/mobile/android/.gradle/
+/mobile/android/local.properties
+*.iml
+*.hprof
+.mobile/android/.cxx/
+*.keystore
+!debug.keystore
+.mobile/android/.kotlin/
+
+# ===================================
+# Web / Vite
+# ===================================
+
+/web/build/
+/web/dist/
+/web/.vite/
+
+# ===================================
+# 环境变量 / 配置
+# ===================================
+
+# 环境变量文件（包含敏感信息）
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 但保留示例文件
+!.env.example
+!.env.sample
+
+# ===================================
+# 日志文件
+# ===================================
+
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+/backend/logs/
+
+# ===================================
+# Docker / 部署
+# ===================================
+
+# Docker volumes (数据持久化目录)
+/backend/mysql_data/
+/backend/redis_data/
+
+# Docker compose override
+docker-compose.override.yml
+
+# ===================================
+# 测试 / 覆盖率
+# ===================================
+
+coverage/
+*.lcov
+.nyc_output/
+
+# ===================================
+# 临时文件
+# ===================================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*~.nib
+*.bak
+*.backup
+*.cache
+
+# ===================================
+# 数据库
+# ===================================
+
+*.sqlite
+*.sqlite3
+*.db
+
+# ===================================
+# 其他
+# ===================================
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# 除非是发布包
+!release-*.tar.gz
+
+# Package manager lock files (可选，根据团队需求)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Go sum 文件通常应该提交
+# go.sum
+
+# TypeScript
+*.tsbuildinfo
+
+# 备份文件
+*.orig
